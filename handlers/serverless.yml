@@ -24,7 +24,9 @@ functions:
             name: authFunction
             type: request
 
-Outputs:
-  MyApiAuth:
-    Description: "API Gateway endpoint URL for dev stage for api key validation in query string"
-    Value: !Sub "https://{sls:instanceId}.execute-api.${AWS::Region}.amazonaws.com/dev/hello/auth?apiKey=yes"
+resources:
+  Resources:
+  Outputs:
+    MyApiAuth:
+      Description: "API Gateway endpoint URL for dev stage for api key validation in query string"
+      Value: !Sub "https://{sls:instanceId}.execute-api.${AWS::Region}.amazonaws.com/dev/hello/auth?apiKey=yes"
