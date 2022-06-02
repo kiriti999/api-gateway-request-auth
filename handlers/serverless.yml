@@ -37,6 +37,16 @@ resources:
         RestApiId:
           Ref: ApiGatewayRestApi
         Type: REQUEST
+        AuthorizerUri:
+          Fn::Join: [ "",
+            [
+              "arn:aws:apigateway:",
+              "ap-southeast-2",
+              ":lambda:path/",
+              "2015-03-31/functions/",
+              Fn::GetAtt: ["AuthorizerLambdaFunction", "Arn" ],
+              "/invocations"
+            ]]
   Outputs:
     MyApiAuth:
       Description: "API Gateway endpoint URL for dev stage for api key validation in query string"
