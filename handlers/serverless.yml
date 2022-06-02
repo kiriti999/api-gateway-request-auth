@@ -43,8 +43,7 @@ resources:
               "arn:aws:apigateway:",
               "ap-southeast-2",
               ":lambda:path/",
-              "2015-03-31/functions/",
-              Fn::GetAtt: ["AuthorizerLambdaFunction", "Arn" ],
+              "2015-03-31/functions/", "arn:aws:lambda:ap-southeast-2:327303463717:function:lambda_request_authorizer",
               "/invocations"
             ]]
   Outputs:

@@ -167,7 +167,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/sls-api-gateway-request-auth/dev/1654180407407-2022-06-02T14:33:27.407Z/sls-api-gateway-request-auth.zip"
+          "S3Key": "serverless/sls-api-gateway-request-auth/dev/1654181109297-2022-06-02T14:45:09.297Z/sls-api-gateway-request-auth.zip"
         },
         "Handler": "./auth.lambda_handler",
         "Runtime": "nodejs14.x",
@@ -192,7 +192,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/sls-api-gateway-request-auth/dev/1654180407407-2022-06-02T14:33:27.407Z/sls-api-gateway-request-auth.zip"
+          "S3Key": "serverless/sls-api-gateway-request-auth/dev/1654181109297-2022-06-02T14:45:09.297Z/sls-api-gateway-request-auth.zip"
         },
         "Handler": "./backend.lambda_handler",
         "Runtime": "nodejs14.x",
@@ -351,7 +351,7 @@
         "BackendFunctionLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1654180403142": {
+    "ApiGatewayDeployment1654181104847": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -410,7 +410,20 @@
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         },
-        "Type": "REQUEST"
+        "Type": "REQUEST",
+        "AuthorizerUri": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:apigateway:",
+              "ap-southeast-2",
+              ":lambda:path/",
+              "2015-03-31/functions/",
+              "arn:aws:lambda:ap-southeast-2:327303463717:function:lambda_request_authorizer",
+              "/invocations"
+            ]
+          ]
+        }
       }
     }
   },
