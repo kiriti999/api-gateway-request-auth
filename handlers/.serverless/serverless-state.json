@@ -180,7 +180,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/sls-api-gateway-request-auth/dev/1654177962869-2022-06-02T13:52:42.869Z/sls-api-gateway-request-auth.zip"
+                "S3Key": "serverless/sls-api-gateway-request-auth/dev/1654180407407-2022-06-02T14:33:27.407Z/sls-api-gateway-request-auth.zip"
               },
               "Handler": "./auth.lambda_handler",
               "Runtime": "nodejs14.x",
@@ -205,7 +205,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/sls-api-gateway-request-auth/dev/1654177962869-2022-06-02T13:52:42.869Z/sls-api-gateway-request-auth.zip"
+                "S3Key": "serverless/sls-api-gateway-request-auth/dev/1654180407407-2022-06-02T14:33:27.407Z/sls-api-gateway-request-auth.zip"
               },
               "Handler": "./backend.lambda_handler",
               "Runtime": "nodejs14.x",
@@ -223,24 +223,24 @@
               "BackendFunctionLogGroup"
             ]
           },
-          "AuthFunctionLambdaVersionVhCFsoy6pkQ1fpaQaieMvwXuocrWUxWHMkSYo35yt6w": {
+          "AuthFunctionLambdaVersionnITislG0ZSeQTME6QBjJnLkiQGaRaesmD5BUfIH4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AuthFunctionLambdaFunction"
               },
-              "CodeSha256": "9d7pv8rLsycYdtscLmIEVr25LpOZeoAi2/n19h+3etE="
+              "CodeSha256": "ho1dJemRH1Fdq+EmqvabWbf/Im+jKjKEXsdxtS3te60="
             }
           },
-          "BackendFunctionLambdaVersionhxgIB5cZkADrhC7Lgt7sdv55pxo5AX5HHpR49epqtro": {
+          "BackendFunctionLambdaVersioni3mNbflHZGnsl1Awuqmjem0CMHoyfwhDA7TGVR9cAY": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "BackendFunctionLambdaFunction"
               },
-              "CodeSha256": "9d7pv8rLsycYdtscLmIEVr25LpOZeoAi2/n19h+3etE="
+              "CodeSha256": "ho1dJemRH1Fdq+EmqvabWbf/Im+jKjKEXsdxtS3te60="
             }
           },
           "ApiGatewayRestApi": {
@@ -329,7 +329,7 @@
               "ApiKeyRequired": false,
               "AuthorizationType": "CUSTOM",
               "AuthorizerId": {
-                "Ref": "AuthFunctionApiGatewayAuthorizer"
+                "Ref": "ApiGatewayAuthorizer"
               },
               "Integration": {
                 "IntegrationHttpMethod": "POST",
@@ -360,44 +360,11 @@
               },
               "MethodResponses": []
             },
-            "DependsOn": "AuthFunctionApiGatewayAuthorizer"
+            "DependsOn": [
+              "BackendFunctionLambdaPermissionApiGateway"
+            ]
           },
-          "AuthFunctionApiGatewayAuthorizer": {
-            "Type": "AWS::ApiGateway::Authorizer",
-            "Properties": {
-              "AuthorizerResultTtlInSeconds": 300,
-              "IdentitySource": "method.request.header.Authorization",
-              "Name": "authFunction",
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              },
-              "AuthorizerUri": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:",
-                    {
-                      "Ref": "AWS::Partition"
-                    },
-                    ":apigateway:",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    ":lambda:path/2015-03-31/functions/",
-                    {
-                      "Fn::GetAtt": [
-                        "AuthFunctionLambdaFunction",
-                        "Arn"
-                      ]
-                    },
-                    "/invocations"
-                  ]
-                ]
-              },
-              "Type": "REQUEST"
-            }
-          },
-          "ApiGatewayDeployment1654177960746": {
+          "ApiGatewayDeployment1654180403142": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -447,41 +414,16 @@
               }
             }
           },
-          "AuthFunctionLambdaPermissionApiGateway": {
-            "Type": "AWS::Lambda::Permission",
+          "ApiGatewayAuthorizer": {
+            "Type": "AWS::ApiGateway::Authorizer",
             "Properties": {
-              "FunctionName": {
-                "Fn::GetAtt": [
-                  "AuthFunctionLambdaFunction",
-                  "Arn"
-                ]
+              "AuthorizerResultTtlInSeconds": 300,
+              "IdentitySource": "",
+              "Name": "UnbounceTesting",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
               },
-              "Action": "lambda:InvokeFunction",
-              "Principal": "apigateway.amazonaws.com",
-              "SourceArn": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:",
-                    {
-                      "Ref": "AWS::Partition"
-                    },
-                    ":execute-api:",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    ":",
-                    {
-                      "Ref": "AWS::AccountId"
-                    },
-                    ":",
-                    {
-                      "Ref": "ApiGatewayRestApi"
-                    },
-                    "/*/*"
-                  ]
-                ]
-              }
+              "Type": "REQUEST"
             }
           }
         },
@@ -497,7 +439,7 @@
           "AuthFunctionLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AuthFunctionLambdaVersionVhCFsoy6pkQ1fpaQaieMvwXuocrWUxWHMkSYo35yt6w"
+              "Ref": "AuthFunctionLambdaVersionnITislG0ZSeQTME6QBjJnLkiQGaRaesmD5BUfIH4"
             },
             "Export": {
               "Name": "sls-sls-api-gateway-request-auth-dev-AuthFunctionLambdaFunctionQualifiedArn"
@@ -506,7 +448,7 @@
           "BackendFunctionLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "BackendFunctionLambdaVersionhxgIB5cZkADrhC7Lgt7sdv55pxo5AX5HHpR49epqtro"
+              "Ref": "BackendFunctionLambdaVersioni3mNbflHZGnsl1Awuqmjem0CMHoyfwhDA7TGVR9cAY"
             },
             "Export": {
               "Name": "sls-sls-api-gateway-request-auth-dev-BackendFunctionLambdaFunctionQualifiedArn"
@@ -641,7 +583,7 @@
         "timeout": 30,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AuthFunctionLambdaVersionVhCFsoy6pkQ1fpaQaieMvwXuocrWUxWHMkSYo35yt6w"
+        "versionLogicalId": "AuthFunctionLambdaVersionnITislG0ZSeQTME6QBjJnLkiQGaRaesmD5BUfIH4"
       },
       "backendFunction": {
         "handler": "./backend.lambda_handler",
@@ -669,11 +611,10 @@
               "path": "auth",
               "authorizer": {
                 "type": "request",
-                "name": "authFunction",
-                "arn": {
-                  "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"AuthFunctionLambdaPermissionApiGateway\"][\"Properties\"][\"FunctionName\"]"
-                },
                 "managedExternally": false,
+                "authorizerId": {
+                  "Ref": "ApiGatewayAuthorizer"
+                },
                 "resultTtlInSeconds": 300,
                 "identitySource": "method.request.header.Authorization",
                 "claims": []
@@ -687,10 +628,24 @@
         "memory": 1024,
         "timeout": 30,
         "vpc": {},
-        "versionLogicalId": "BackendFunctionLambdaVersionhxgIB5cZkADrhC7Lgt7sdv55pxo5AX5HHpR49epqtro"
+        "versionLogicalId": "BackendFunctionLambdaVersioni3mNbflHZGnsl1Awuqmjem0CMHoyfwhDA7TGVR9cAY"
       }
     },
     "resources": {
+      "Resources": {
+        "ApiGatewayAuthorizer": {
+          "Type": "AWS::ApiGateway::Authorizer",
+          "Properties": {
+            "AuthorizerResultTtlInSeconds": 300,
+            "IdentitySource": "",
+            "Name": "UnbounceTesting",
+            "RestApiId": {
+              "Ref": "ApiGatewayRestApi"
+            },
+            "Type": "REQUEST"
+          }
+        }
+      },
       "Outputs": {
         "MyApiAuth": {
           "Description": "API Gateway endpoint URL for dev stage for api key validation in query string",
@@ -698,8 +653,7 @@
             "Fn::Sub": "https://{sls:instanceId}.execute-api.${AWS::Region}.amazonaws.com/dev/hello/auth?apiKey=yes"
           }
         }
-      },
-      "Resources": {}
+      }
     },
     "configValidationMode": "error",
     "serviceFilename": "serverless.yml",
@@ -722,7 +676,7 @@
     "artifact": "D:\\projects\\practice\\aws\\api-gateway-request-auth\\handlers\\.serverless\\sls-api-gateway-request-auth.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/sls-api-gateway-request-auth/dev/1654177962869-2022-06-02T13:52:42.869Z",
+    "artifactDirectoryName": "serverless/sls-api-gateway-request-auth/dev/1654180407407-2022-06-02T14:33:27.407Z",
     "artifact": "sls-api-gateway-request-auth.zip"
   }
 }
