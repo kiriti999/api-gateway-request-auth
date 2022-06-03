@@ -32,9 +32,7 @@ resources:
       Type: AWS::ApiGateway::Authorizer
       Properties:
         AuthorizerResultTtlInSeconds: 300
-        IdentitySource:
-          QueryStrings:
-            - auth
+        IdentitySource: method.request.querystring.key
         Name: UnbounceTesting
         RestApiId:
           Ref: ApiGatewayRestApi

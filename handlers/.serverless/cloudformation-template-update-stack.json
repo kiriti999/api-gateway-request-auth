@@ -167,7 +167,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/sls-api-gateway-request-auth/dev/1654181213979-2022-06-02T14:46:53.979Z/sls-api-gateway-request-auth.zip"
+          "S3Key": "serverless/sls-api-gateway-request-auth/dev/1654245805347-2022-06-03T08:43:25.347Z/sls-api-gateway-request-auth.zip"
         },
         "Handler": "./auth.lambda_handler",
         "Runtime": "nodejs14.x",
@@ -192,7 +192,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/sls-api-gateway-request-auth/dev/1654181213979-2022-06-02T14:46:53.979Z/sls-api-gateway-request-auth.zip"
+          "S3Key": "serverless/sls-api-gateway-request-auth/dev/1654245805347-2022-06-03T08:43:25.347Z/sls-api-gateway-request-auth.zip"
         },
         "Handler": "./backend.lambda_handler",
         "Runtime": "nodejs14.x",
@@ -351,7 +351,7 @@
         "BackendFunctionLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1654181209609": {
+    "ApiGatewayDeployment1654245795864": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -405,7 +405,7 @@
       "Type": "AWS::ApiGateway::Authorizer",
       "Properties": {
         "AuthorizerResultTtlInSeconds": 300,
-        "IdentitySource": "",
+        "IdentitySource": "method.request.querystring.key",
         "Name": "UnbounceTesting",
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
