@@ -15,6 +15,5 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "serverless-pseudo-parameters": "^2.6.1"
   }
 }
