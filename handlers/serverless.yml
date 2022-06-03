@@ -34,7 +34,7 @@ resources:
         AuthorizerResultTtlInSeconds: 300
         IdentitySource:
           QueryStrings:
-              - auth
+            - auth
         Name: UnbounceTesting
         RestApiId:
           Ref: ApiGatewayRestApi
