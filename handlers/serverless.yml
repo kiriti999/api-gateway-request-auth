@@ -46,7 +46,16 @@ resources:
               "2015-03-31/functions/", "arn:aws:lambda:ap-southeast-2:327303463717:function:lambda_request_authorizer",
               "/invocations"
             ]]
+
+    GWAuthPermission:
+      Type: "AWS::Lambda::Permission"
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: arn:aws:lambda:ap-southeast-2:327303463717:function:lambda_request_authorizer
+        Principal: "apigateway.amazonaws.com"
+        # SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGatewayRestApi}/authorizers/${GWAuth}"
+
   Outputs:
     MyApiAuth:
       Description: "API Gateway endpoint URL for dev stage for api key validation in query string"
-      Value: !Sub "https://{sls:instanceId}.execute-api.${AWS::Region}.amazonaws.com/dev/hello/auth?apiKey=yes"
+      Value: !Sub "https://${ApiGatewayRestApi}.execute-api.${AWS::Region}.amazonaws.com/dev/hello/auth?apiKey=yes"
