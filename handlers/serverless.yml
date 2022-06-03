@@ -53,7 +53,6 @@ resources:
         Action: lambda:InvokeFunction
         FunctionName: arn:aws:lambda:ap-southeast-2:327303463717:function:lambda_request_authorizer
         Principal: "apigateway.amazonaws.com"
-        # SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGatewayRestApi}/authorizers/${GWAuth}"
 
   Outputs:
     MyApiAuth:
