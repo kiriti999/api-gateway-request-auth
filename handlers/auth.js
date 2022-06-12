@@ -5,7 +5,11 @@ exports.lambda_handler = async function (event) {
     if (queryStringParams === 'yes')
         return generateAuthResponse('user', 'Allow', methodArn);
     else
-        return generateAuthResponse('user', 'Deny', methodArn);
+        // return generateAuthResponse('user', 'Deny', methodArn);
+        return {
+            statusCode: 403,
+            message: 'Invalid api key'
+        }
 }
 
 function generateAuthResponse(principalId, effect, methodArn) {

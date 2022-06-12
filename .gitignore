@@ -3,3 +3,5 @@ packaged.yaml
 node_modules
 .serverless
 .aws-sam
+handlers/.aws-sam
+handlers/.serverless
